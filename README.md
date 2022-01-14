@@ -1,11 +1,4 @@
-# TypeScript Project Template
-
-## Installation
-
-1. Fork this repo
-2. Replace MY_APP with the name of your app project-wide (**No Spaces or special characters!**)
-3. `npm i`
-4. Update the documentation, changelog, etc
+# ts-error-handler
 
 ## Development
 
@@ -57,16 +50,8 @@ export interface Environment {
  * Default Values
  */
 const defaults: Environment = {
-	APP_TITLE: 'MY_APP'
+	APP_TITLE: 'ts-error-handler'
 
 	// TODO: Set default variables here
 };
 ```
-
-You'll now have editor hints on environment variables:
-
-![Screenshot](doc/image/environment-1.png)
-
-and type-checking:
-
-![Screenshot](doc/image/environment-2.png)
