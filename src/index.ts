@@ -8,37 +8,7 @@ if (!process[Symbol.for('ts-node.register.instance')]) {
 	});
 }
 
-/**
- * Global error handler
- */
-
-/**
- * A handler function takes an Error and returns void
- */
-export type HandlerFunction = (e: Error) => void;
-
-/**
- * Default error handler
- *
- * @param e
- */
-let _handler: HandlerFunction = (e: Error) => {
-	// eslint-disable-next-line no-console
-	console.error('Unhandled', e);
-	process.exit(1);
-};
-
-export const handler: HandlerFunction = (e: Error) => _handler(e);
-
-export function setHandler(f: HandlerFunction): void {
-	_handler = f;
-}
-
-/**
- * Register global handler for uncaught errors
- */
-process.on('uncaughtException', handler);
-process.on('unhandledRejection', handler);
+import { HandlerFunction } from 'handler-function';
 
 /**
  * Options for setupErrorHandling
@@ -68,6 +38,7 @@ export const defaultOptions: ErrorHandlerOptions = {
 	justMyCode: true,
 	justMyCodeIncludeNodeModules: false,
 	justMyCodeIncludeInternals: false,
+	handler: console.error
 };
 
 /**
@@ -77,6 +48,12 @@ export const defaultOptions: ErrorHandlerOptions = {
  */
 export function setupErrorHandling(options: Partial<ErrorHandlerOptions>) {
 	options = { ...defaultOptions, ...options };
+
+	/**
+	 * Register global handler for uncaught errors
+	 */
+	process.on('uncaughtException', options.handler);
+	process.on('unhandledRejection', options.handler);
 
 	/**
 	 * Stack traces
@@ -106,9 +83,5 @@ export function setupErrorHandling(options: Partial<ErrorHandlerOptions>) {
 				.map(line => line.replace('Object.<anonymous> ', ''))
 				.join('\n');
 		};
-	}
-
-	if (options.handler) {
-		setHandler(options.handler);
 	}
 }

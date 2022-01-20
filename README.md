@@ -6,7 +6,7 @@ This package enhances typescript error handling, meaning easier troubleshooting 
 - Customizable stack traces
 - Set stack trace limit
 - Set stack trace to "Just my Code"
-- Provides a overridable global error handler
+- Sets global uncaught global error handlers
 
 ## Setup
 
@@ -17,7 +17,7 @@ This package enhances typescript error handling, meaning easier troubleshooting 
 **Usage**
 
 ```typescript
-import { setupErrorHandling, handler } from 'ts-error-handler';
+import { setupErrorHandling } from 'ts-error-handler';
 
 // Setup error handling options
 setupErrorHandling({
@@ -26,34 +26,31 @@ setupErrorHandling({
 })
 
 // Example:
-try {
-	// Throw an error
-	throw new Error('Help!');
-}
-catch (e) {
-	// Send the error to the handler
-	handler(e);
-}
+throw new Error('Help!');
 ```
 
 **With ts-async-bootstrap**
 
 ```typescript
 import { bootstrap } from 'ts-async-bootstrap';
-import { setupErrorHandling, handler } from 'ts-error-handler';
+import { setupErrorHandling } from 'ts-error-handler';
 
 import { register, main } from './somewhere-else';
 
+function errorHandler(e: Error): void {
+	console.error('Error!', e);
+}
+
 // Setup error handling
 setupErrorHandling({
-	handler: (e) => console.error('Error!', e)
+	handler: errorHandler
 });
 
 // Pass handler from ts-error-handler to bootstrap()
 bootstrap({
 	register: register,
 	run: main,
-	errorHandler: handler
+	errorHandler: errorHandler
 });
 ```
 
@@ -75,3 +72,7 @@ Set to true to show node-modules in stack traces when justMyCode is on
 **justMyCodeIncludeInternals**
 
 Set to true to show node-internals in stack traces when justMyCode is on
+
+**handler**
+
+Global error handler for uncaught exceptions/promise-rejections. Default is `console.error`
