@@ -38,6 +38,8 @@ export const defaultOptions: ErrorHandlerOptions = {
 	justMyCode: true,
 	justMyCodeIncludeNodeModules: false,
 	justMyCodeIncludeInternals: false,
+
+	// eslint-disable-next-line no-console
 	handler: console.error
 };
 
