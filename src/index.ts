@@ -8,7 +8,7 @@ if (!process[Symbol.for('ts-node.register.instance')]) {
 	});
 }
 
-import { HandlerFunction } from 'handler-function';
+import { HandlerFunction } from './handler-function';
 
 /**
  * Options for setupErrorHandling
