@@ -19,7 +19,8 @@ describe('index', () => {
 
 	it('allows filtering of .js extension', () => {
 		setupErrorHandling({
-			justMyCode: true
+			justMyCode: true,
+			includeJsFiles: false,
 		});
 
 		const trace = getStackTrace();
