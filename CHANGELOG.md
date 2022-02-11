@@ -3,6 +3,7 @@
 ## [1.0.2]
 
 ### Fixes
+- Typescript Template v2
 
 ## [1.0.1]
 

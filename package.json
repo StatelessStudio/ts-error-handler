@@ -1,18 +1,19 @@
 {
 	"name": "ts-error-handler",
 	"version": "1.0.2",
-	"ts-project-version": "1.2.4",
-	"private": "true",
+	"ts-project-version": "2.0.0",
+	"description": "Typescript Error Handling & Source Mapping",
 	"scripts": {
 		"start": "npm run dev",
 		"dev": "npm run lint && ts-node src/index.ts",
+		"watch": "nodemon .",
 		"test": "npm run build:dev:clean && npm run coverage",
 		"clean": "rm -rf dist",
 		"build:dev": "npm run lint && npm run preprocess && npm run compile && npm run postprocess",
 		"build:dev:clean": "npm run clean && npm run build:dev",
 		"build:prod": "npm run preprocess prod && npm run lint:prod && npm run compile && npm run postprocess prod",
 		"build:prod:clean": "npm run clean && npm run build:prod",
-		"compile": "./node_modules/.bin/tsc",
+		"compile": "tsc",
 		"preprocess": "",
 		"postprocess": "",
 		"doc": "typedoc --out docs src",
@@ -20,7 +21,8 @@
 		"lint:prod": "eslint . --ext .ts --fix --config=.eslintrc.prod.json",
 		"coverage": "nyc npm run coverage-test",
 		"coverage-test": "jasmine --config=jasmine.json",
-		"coveralls": "cat ./coverage/lcov.info | coveralls"
+		"coveralls": "cat ./coverage/lcov.info | coveralls",
+		"admin:example": "ts-node script/example"
 	},
 	"dependencies": {
 		"source-map-support": "^0.5.21"
@@ -28,16 +30,37 @@
 	"devDependencies": {
 		"@istanbuljs/nyc-config-typescript": "^1.0.2",
 		"@types/jasmine": "^3.10.3",
-		"@types/node": "^12.20.42",
-		"@typescript-eslint/eslint-plugin": "^4.33.0",
-		"@typescript-eslint/parser": "^4.33.0",
+		"@types/node": "^16.11.21",
+		"@typescript-eslint/eslint-plugin": "^5.10.0",
+		"@typescript-eslint/parser": "^5.10.0",
 		"coveralls": "^3.1.1",
-		"eslint": "^7.32.0",
-		"jasmine": "^3.99.0",
+		"eslint": "^8.7.0",
+		"jasmine": "^4.0.2",
+		"nodemon": "^2.0.15",
 		"nyc": "^15.1.0",
 		"ts-node": "^10.4.0",
 		"ts-packager": "^1.0.1",
 		"typedoc": "^0.22.11",
 		"typescript": "^4.5.5"
-	}
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/StatelessStudio/ts-error-handler.git"
+	},
+	"author": "stateless-studio",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/StatelessStudio/ts-error-handler/issues"
+	},
+	"homepage": "https://github.com/StatelessStudio/ts-error-handler#readme",
+	"keywords": [
+		"error",
+		"handler",
+		"source-map",
+		"source",
+		"map",
+		"stack",
+		"trace",
+		"just my code"
+	]
 }
