@@ -26,6 +26,9 @@ export interface ErrorHandlerOptions {
 	// Ignore node internals? (justMyCode must be true)
 	justMyCodeIncludeInternals: boolean,
 
+	// Ignore javascript & compiled files?
+	includeJsFiles: boolean,
+
 	// Error handler
 	handler?: HandlerFunction,
 }
@@ -38,6 +41,7 @@ export const defaultOptions: ErrorHandlerOptions = {
 	justMyCode: true,
 	justMyCodeIncludeNodeModules: false,
 	justMyCodeIncludeInternals: false,
+	includeJsFiles: false,
 
 	// eslint-disable-next-line no-console
 	handler: console.error
@@ -72,6 +76,10 @@ export function setupErrorHandling(options: Partial<ErrorHandlerOptions>) {
 				.filter(line => {
 					return (
 						line &&
+						(
+							options.includeJsFiles ||
+							!line.includes('.js')
+						) &&
 						(
 							options.justMyCodeIncludeNodeModules ||
 							!line.includes('node_modules')
